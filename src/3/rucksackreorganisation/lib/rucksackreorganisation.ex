@@ -31,12 +31,8 @@ defmodule RucksackReorganisation do
     |> get_char_value()
   end
 
-  # Surely there's a better way?
   defp split_string_in_half(str) do
-    halfway = round(String.length(str) / 2)
-    first = String.slice(str, 0..halfway - 1)
-    second = String.slice(str, halfway, halfway)
-    { first, second }
+    String.split_at(str, round(String.length(str) / 2))
   end
 
   defp find_overlaps(substrings) do
