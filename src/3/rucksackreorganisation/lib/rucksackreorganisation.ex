@@ -19,6 +19,18 @@ defmodule RucksackReorganisation do
     |> Enum.sum()
   end
 
+  def sum_of_group_priorities groups do
+    groups |> Enum.map(fn group -> calculate_group_priority(group) end) |> Enum.sum()
+  end
+
+  defp calculate_group_priority group do
+    [ elf1, elf2, elf3 ] = group |> Enum.map(fn elf -> String.graphemes(elf) end)
+    intersect(elf1, elf2)
+    |> intersect(elf3)
+    |> List.first()
+    |> get_char_value()
+  end
+
   # Surely there's a better way?
   defp split_string_in_half(str) do
     halfway = round(String.length(str) / 2)
