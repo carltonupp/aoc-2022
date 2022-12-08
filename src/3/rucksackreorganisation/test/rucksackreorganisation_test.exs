@@ -3,27 +3,21 @@ defmodule RucksackReorganisationTest do
   doctest RucksackReorganisation
 
   test "part 1 sample inputs" do
-    samples = [
-      "vJrwpWtwJgWrhcsFMMfFFhFp",
+    assert [ "vJrwpWtwJgWrhcsFMMfFFhFp",
       "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
       "PmmdzqPrVvPwwTWBwg",
       "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
       "ttgJtRGJQctTZtZT",
-      "CrZsJsPPZsGzwwsLwLmpwMDw"]
-
-    assert RucksackReorganisation.sum_of_priorites(samples) == 157
+      "CrZsJsPPZsGzwwsLwLmpwMDw" ]
+    |> RucksackReorganisation.sum_of_priorites() == 157
   end
 
-  test "split string works" do
-    assert elem(RucksackReorganisation.split_string_in_half("vJrwpWtwJgWrhcsFMMfFFhFp"), 0) == "vJrwpWtwJgWr"
-    assert elem(RucksackReorganisation.split_string_in_half("vJrwpWtwJgWrhcsFMMfFFhFp"), 1) == "hcsFMMfFFhFp"
-  end
-
-  test "overlaps" do
-    values = RucksackReorganisation.split_string_in_half("vJrwpWtwJgWrhcsFMMfFFhFp")
-    |> RucksackReorganisation.find_overlaps()
-
-    # assert values == [1, 2, 3]
-    assert RucksackReorganisation.intersect([1, 2, 3], [2, 3, 4]) == [2, 3]
+  test "part 1 real inputs" do
+    assert Path.expand("./test/inputs.txt")
+    |> Path.absname()
+    |> File.stream!()
+    |> Stream.map(&String.trim_trailing/1)
+    |> Enum.to_list()
+    |> RucksackReorganisation.sum_of_priorites() == 7875
   end
 end
