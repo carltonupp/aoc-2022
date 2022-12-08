@@ -39,6 +39,6 @@ defmodule RucksackReorganisationTest do
     |> Stream.map(&String.trim_trailing/1)
     |> Enum.to_list()
     |> Enum.chunk_every(3)
-    |> RucksackReorganisation.sum_of_group_priorities() == 100
+    |> RucksackReorganisation.sum_of_group_priorities() == 2479
   end
 end
