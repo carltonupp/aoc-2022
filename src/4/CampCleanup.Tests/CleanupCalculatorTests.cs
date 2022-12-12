@@ -60,6 +60,6 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
                 return new Tuple<SectionRange, SectionRange>(sectionRange1, sectionRange2);
             });
         
-        Assert.Equal(100, _fixture.GetFullyOverlappingRanges(inputs));
+        Assert.Equal(496, _fixture.GetFullyOverlappingRanges(inputs));
     }
 }
