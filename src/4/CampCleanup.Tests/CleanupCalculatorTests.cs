@@ -9,25 +9,6 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
     }
 
     [Fact]
-    public void Test_CorrectSectionRangeLength()
-    {
-        var input1 = new SectionRange(2, 8);
-        var input2 = new SectionRange(3, 7);
-        
-        Assert.Equal(7, input1.Length);
-        Assert.Equal(5, input2.Length);
-    }
-
-    [Fact]
-    public void Test_RangeFullyContainsOther()
-    {
-        var input1 = new SectionRange(2, 8);
-        var input2 = new SectionRange(3, 7);
-        
-        Assert.True(_fixture.RangeFullyContainsOther(input1, input2));
-    }
-
-    [Fact]
     public void Part1_SampleInputs()
     {
         var inputs = new List<Tuple<SectionRange, SectionRange>>
