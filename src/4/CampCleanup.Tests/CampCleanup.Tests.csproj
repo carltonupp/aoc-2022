@@ -25,4 +25,10 @@
       <ProjectReference Include="..\CampCleanup\CampCleanup.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="inputs.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
