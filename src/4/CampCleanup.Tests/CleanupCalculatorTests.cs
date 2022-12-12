@@ -47,19 +47,26 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
     public void Part1_RealInputs()
     {
         var inputs = File.ReadLines("./inputs.txt")
-            .Select(s =>
-            {
-                var splitLine = s.Split(',');
-
-                var range1 = splitLine[0].Split('-').Select(x => int.Parse(x)).ToArray();
-                var sectionRange1 = new SectionRange(range1[0], range1[1]);
-
-                var range2 = splitLine[1].Split('-').Select(x => int.Parse(x)).ToArray();
-                var sectionRange2 = new SectionRange(range2[0], range2[1]);
-
-                return new Tuple<SectionRange, SectionRange>(sectionRange1, sectionRange2);
-            });
+            .Select(TurnLineIntoSectionRangeTuple);
         
         Assert.Equal(496, _fixture.GetFullyOverlappingRanges(inputs));
+    }
+
+    private static Tuple<SectionRange, SectionRange> TurnLineIntoSectionRangeTuple(string line)
+    {
+        return line.Split(',').Select(TurnSubStringIntoSectionRange).ToArray() switch
+        {
+            [var first, var last] => new Tuple<SectionRange, SectionRange>(first, last),
+            _ => throw new Exception()
+        };
+    }
+
+    private static SectionRange TurnSubStringIntoSectionRange(string str)
+    {
+        return str.Split('-').Select(int.Parse).ToArray() switch
+        {
+            [var start, var end] => new SectionRange(start, end),
+            _ => throw new Exception()
+        };
     }
 }
