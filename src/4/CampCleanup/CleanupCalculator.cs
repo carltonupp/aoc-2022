@@ -10,6 +10,15 @@ public class CleanupCalculator
             return RangeFullyContainsOther(r1, r2);
         }).Count();
     }
+
+    public int GetPartiallyOverlappingRanges(IEnumerable<Tuple<SectionRange, SectionRange>> ranges)
+    {
+        return ranges.Where(r =>
+        {
+            var (r1, r2) = r;
+            return RangePartiallyContainsOther(r1, r2);
+        }).Count();
+    }
     
     private static bool RangeFullyContainsOther(SectionRange range1, SectionRange range2)
     {
@@ -26,6 +35,11 @@ public class CleanupCalculator
 
         return common.Count() == enumerated.Count()
                && !common.Except(enumerated).Any();
+    }
+
+    private static bool RangePartiallyContainsOther(SectionRange range1, SectionRange range2)
+    {
+        return EnumerateSectionRange(range1).Intersect(EnumerateSectionRange(range2)).Any();
     }
 
     private static IEnumerable<int> IntersectSectionRanges(SectionRange largest, SectionRange smallest)
