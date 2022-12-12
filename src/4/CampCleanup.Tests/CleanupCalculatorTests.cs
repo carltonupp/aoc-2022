@@ -1,13 +1,7 @@
 namespace CampCleanup.Tests;
 
-public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
+public class CleanupCalculatorTests
 {
-    private readonly CleanupCalculator _fixture;
-    public CleanupCalculatorTests(CleanupCalculator fixture)
-    {
-        _fixture = fixture;
-    }
-
     [Fact]
     public void Part1_SampleInputs()
     {
@@ -21,7 +15,7 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
             new(new SectionRange(2, 6), new SectionRange(4, 8))
         };
         
-        Assert.Equal(2, _fixture.GetFullyOverlappingRanges(inputs));
+        Assert.Equal(2, CleanupCalculator.GetFullyOverlappingRanges(inputs));
     }
 
     [Fact]
@@ -30,7 +24,7 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
         var inputs = File.ReadLines("./inputs.txt")
             .Select(TurnLineIntoSectionRangeTuple);
         
-        Assert.Equal(496, _fixture.GetFullyOverlappingRanges(inputs));
+        Assert.Equal(496, CleanupCalculator.GetFullyOverlappingRanges(inputs));
     }
 
     [Fact]
@@ -46,7 +40,7 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
             new(new SectionRange(2, 6), new SectionRange(4, 8))
         };
         
-        Assert.Equal(4, _fixture.GetPartiallyOverlappingRanges(inputs));
+        Assert.Equal(4, CleanupCalculator.GetPartiallyOverlappingRanges(inputs));
     }
 
     [Fact]
@@ -55,7 +49,7 @@ public class CleanupCalculatorTests : IClassFixture<CleanupCalculator>
         var inputs = File.ReadLines("./inputs.txt")
             .Select(TurnLineIntoSectionRangeTuple);
         
-        Assert.Equal(847, _fixture.GetPartiallyOverlappingRanges(inputs));
+        Assert.Equal(847, CleanupCalculator.GetPartiallyOverlappingRanges(inputs));
     }
 
     private static Tuple<SectionRange, SectionRange> TurnLineIntoSectionRangeTuple(string line)
