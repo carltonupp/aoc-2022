@@ -53,10 +53,43 @@ public class ShipyardTests
         var file = File.ReadAllText("./inputs.txt");
         var segments = Regex.Split(file, "^\n", RegexOptions.Multiline);
         var initialState = segments[0];
+
         var lines = initialState.Split("\n");
-        var stackNumbers = lines.Last(l => l != string.Empty).Split(" ");
+        var stackNumbers = lines.Last(l => l != string.Empty).Split().Where(s => s != string.Empty);
+
+        var stacks = new List<CrateStack>();
         
-        
-        Assert.Equal("", initialState);
+        foreach (var stackNumber in stackNumbers)
+        {
+            if (int.Parse(stackNumber) is var parsed)
+            {
+                var stack = new CrateStack(parsed);
+                var index = lines.Last(l => l != string.Empty).IndexOf(stackNumber);
+
+                foreach (var line in lines.Where(l => l.Contains('[')).Reverse())
+                {
+                    var value = line[index].ToString();
+                    if (!string.IsNullOrWhiteSpace(value))
+                        stack.Push(value);
+                }
+                
+                stacks.Add(stack);
+            }
+        }
+
+        var shipyard = new Shipyard(stacks.ToArray());
+        var instructions = segments[1].Split("\n")
+            .Select(CraneInstruction.ParseFromString);
+
+        foreach (var instruction in instructions)
+        {
+            shipyard = CargoCrane.ProcessInstructionOnShipyard(instruction, shipyard);
+        }
+
+        var topResults = shipyard.GetTopCratesOnEachStack().ToArray();
+
+        var joined = string.Join(' ', topResults);
+
+        Assert.Equal("ABC", joined);
     }
 }
