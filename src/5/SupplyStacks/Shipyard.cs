@@ -2,7 +2,7 @@ namespace SupplyStacks;
 
 public class Shipyard
 {
-    private ICollection<CrateStack> _stacks = new List<CrateStack>();
+    private readonly ICollection<CrateStack> _stacks = new List<CrateStack>();
 
     public Shipyard(params CrateStack[] stacks)
     {
@@ -14,7 +14,7 @@ public class Shipyard
     
     public IEnumerable<string> GetTopCratesOnEachStack()
     {
-        return _stacks.Select(stack => stack.Pop()).ToList();
+        return _stacks.OrderBy(s => s.ID).Select(stack => stack.Pop());
     }
 
     public CrateStack? GetCrateStack(int id)
@@ -24,6 +24,11 @@ public class Shipyard
 
     public void UpdateCrateStack(int id, CrateStack value)
     {
-        
+        var existing = _stacks.FirstOrDefault(s => s.ID == id);
+        if (existing != null)
+        {
+            _stacks.Remove(existing);
+        }
+        _stacks.Add(value);
     }
 }
