@@ -136,6 +136,6 @@ public class ShipyardTests
 
         var joined = string.Join(' ', topResults);
 
-        Assert.Equal("V G B B J C R M N", joined);
+        Assert.Equal("L B B V J B R M H", joined);
     }
 }
