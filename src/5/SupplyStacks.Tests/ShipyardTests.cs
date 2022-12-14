@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace SupplyStacks.Tests;
 
 public class ShipyardTests
@@ -43,5 +45,18 @@ public class ShipyardTests
         Assert.Equal("C", topResults[0]);
         Assert.Equal("M", topResults[1]);
         Assert.Equal("Z", topResults[2]);
+    }
+
+    [Fact]
+    public void CanGetTopCratesFromEachStack_RealInputs()
+    {
+        var file = File.ReadAllText("./inputs.txt");
+        var segments = Regex.Split(file, "^\n", RegexOptions.Multiline);
+        var initialState = segments[0];
+        var lines = initialState.Split("\n");
+        var stackNumbers = lines.Last(l => l != string.Empty).Split(" ");
+        
+        
+        Assert.Equal("", initialState);
     }
 }

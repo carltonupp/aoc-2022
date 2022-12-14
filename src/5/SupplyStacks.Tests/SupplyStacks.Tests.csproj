@@ -25,4 +25,10 @@
       <ProjectReference Include="..\SupplyStacks\SupplyStacks.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="inputs.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
